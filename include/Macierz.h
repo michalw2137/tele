@@ -10,12 +10,26 @@
 class Macierz {
 
 private:
-    int iloscRzedow;
-    int iloscKolumn;
-    int dlugoscSlowa;
-    int **macierz;
+    int iloscRzedow = 10;
+    int iloscKolumn = 10+8;
+    int dlugoscSlowa = 8;
+    int macierz[10][10 + 8] = {
+            {1,0,1,1,1,0,1,1, 1,0,0,0,0,0,0,0,0, 0},
+            {0,0,0,0,1,1,1,1, 0,1,0,0,0,0,0,0,0, 0},
+            {0,0,1,1,0,0,0,0, 0,0,1,0,0,0,0,0,0, 0},
 
-    void uzupelnijMacierz();
+            {1,1,0,1,0,1,1,1, 0,0,0,1,0,0,0,0,0, 0},
+            {0,1,0,1,0,0,0,1, 0,0,0,0,1,0,0,0,0, 0},
+            {1,0,1,0,1,0,1,1, 0,0,0,0,0,1,0,0,0, 0},
+
+            {1,1,0,1,0,0,1,0, 0,0,0,0,0,0,1,0,0, 0},
+            {0,1,0,1,1,0,1,1, 0,0,0,0,0,0,0,1,0, 0},
+            {1,1,1,1,1,1,0,1, 0,0,0,0,0,0,0,0,1, 0},
+
+            {1,0,0,1,0,1,1,1, 0,0,0,0,0,0,0,0,0, 1},
+    };
+
+//    void uzupelnijMacierz();
 
     void ustawWartosc(int x, int y, int wartosc);
 
@@ -30,10 +44,11 @@ public:
 
     std::vector<int> pomnozRazyWektor(std::vector<int> wektor);
 
-    int znajdzIdentycznyWiersz(std::vector<int> wektor);
+    std::vector<int> znajdzIdentyczneWiersze(std::vector<int> wektor);
 
     bool czyKolumnaJestTakaJakWektor(int numerKolumny, std::vector<int> wektor);
 
+    std::vector<int> odejmijKolumneOdWektora(std::vector<int> wektor, int j);
 };
 
 #endif //BLEDY_KODY_MACIERZ_H

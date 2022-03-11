@@ -11,17 +11,24 @@
 std::vector<int> Dekoder::naprawSlowo(std::vector<int> slowo) {
     auto macierz = std::make_shared<Macierz>(8, slowo.size() - 8);
     auto iloczyn = macierz->pomnozRazyWektor(slowo);
+
+    std::vector<int> numeryWierszy;
+
     try {
-        int numerWiersza = macierz->znajdzIdentycznyWiersz(iloczyn);
-        if (slowo[numerWiersza] == 0) {
-            slowo[numerWiersza] = 1;
-        } else {
-            slowo[numerWiersza] = 0;
-        }
-        return slowo;
+        numeryWierszy = macierz->znajdzIdentyczneWiersze(iloczyn);
+
     } catch (std::logic_error& e) {
         return slowo;
-    };
+    }
+
+    for(int w: numeryWierszy) {
+        if (slowo[w] == 0) {
+            slowo[w] = 1;
+        } else {
+            slowo[w] = 0;
+        }
+    }
+    return slowo;
 
 }
 
