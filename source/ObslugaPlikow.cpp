@@ -8,7 +8,7 @@
 
 using namespace std;
 
-void ObslugaPlikow::wczytajPlik() {
+void ObslugaPlikow::wczytajPlikZeSpacjami(std::string plikWejsciowy) {
     ifstream plik(plikWejsciowy, ios::binary);
     std::getline(plik, tekst, '\0');
     plik.close();

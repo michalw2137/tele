@@ -10,13 +10,13 @@ class ObslugaPlikow {
 
 private:
     std::string tekst;
-    std::string plikWejsciowy = "../pliki/wejscie.txt";
     std::string plikWyjsciowy = "../pliki/wyjscie.txt";
 
 public:
     std::string getTekst();
-    void wczytajPlik();
+    void wczytajPlikZeSpacjami(std::string plikWejsciowy);
     void zapiszPlik(const std::string& doZapisu);
+
 };
 
 

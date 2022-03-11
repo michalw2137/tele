@@ -63,12 +63,6 @@ void print(std::string tekst[], int dlugosc){
     }
     std::cout << std::endl;
 }
-void testNaprawianieBledow();
-void testKodowanieZnakow();
-void testZnajdowanieWiesza();
-void testOdkodowanieWektora();
-void testOdkodowanieStringa();
-void testOdczytu();
 
 int zamienWartosc(int wartosc) {
     if (wartosc == 0) {
@@ -86,6 +80,16 @@ int zamienWartosc(char wartosc) {
     }
 }
 
+void testNaprawianieBledow();
+void testKodowanieZnakow();
+void testZnajdowanieWiesza();
+void testOdkodowanieWektora();
+void testOdkodowanieStringa();
+void testKodowania();
+void testDekodowania();
+
+std::string get15znakow(int &indeks, std::string &tekst);
+
 int main() {
 //    testKodowanieZnakow();
 //    testZnajdowanieWiesza();
@@ -93,14 +97,51 @@ int main() {
 ////    testOdkodowanieWektora(); - uzywa prywatnych metod
 //    testOdkodowanieStringa();
 
-testOdczytu();
+//testKodowania();
+    testDekodowania();
+
+/*
+    wczytajZakodowany
+    wczytajDoZakodowania
+
+    wykonajOperacje
+
+    zapiszOdkodowany
+    zapiszZakodowany
+
+ */
     return 0;
 }
 
+std::string get15znakow(int &indeks, std::string &tekst) {
+    std::stringstream slowo;
+    do {
+        std::cout << indeks;
+        if (tekst[indeks] != '\n') {
+            slowo << tekst[indeks];
+        }
+        indeks ++;
+    } while(indeks % (8+7) != 0);
 
-void testOdczytu() {
+    return slowo.str();
+}
+
+void testDekodowania() {
     auto pliki = std::make_shared<ObslugaPlikow>();
-    pliki->wczytajPlik();
+    pliki->wczytajPlikZeSpacjami("../pliki/wejscie.txt");
+    std::string tekst = pliki->getTekst();
+
+    int indeks = 0;
+
+    while (indeks < tekst.size()) {
+        std::cout << "    " << get15znakow(indeks, tekst) << "\n";
+    }
+
+}
+
+void testKodowania() {
+    auto pliki = std::make_shared<ObslugaPlikow>();
+    pliki->wczytajPlikZeSpacjami("../pliki/wejscie.txt");
     std::string tekst = pliki->getTekst();
 
     std::stringstream kod;
@@ -108,9 +149,9 @@ void testOdczytu() {
         kod << Koder::zakoduj(znak, 7) << "\n";
     }
     std::cout << tekst << "\n";
-    std::cout << kod.str();
+//    std::cout << kod.str();
 
-    pliki->zapiszPlik(kod.str());
+//    pliki->zapiszPlik(kod.str());
 }
 
 
