@@ -8,36 +8,19 @@
 
 using namespace std;
 
-void ObslugaPlikow::wczytajDlugosc() {
-    fstream plik;
-    plik.open("plik.txt",ios::in | ios::binary);
-    if(plik.fail()){
-        cerr<<"problem z plikiem";
-        exit;
-    }
-    plik.seekg(0,ios::end);
-    dlugosc = plik.tellg();
-
+void ObslugaPlikow::wczytajPlik() {
+    ifstream plik(plikWejsciowy,ios::in | ios::binary);
+    plik >> tekst;
     plik.close();
 }
 
-void ObslugaPlikow::wczytajPlik(char * tekst) {
-    fstream plik;
-    plik.open("plik.txt",ios::in | ios::binary);
-    plik.seekg(0,ios::beg);
-    plik.read(tekst,dlugosc);
-    tekst[dlugosc]='\0';
+void ObslugaPlikow::zapiszPlik(std::string doZapisu) {
+    ofstream plik(plikWyjsciowy,ios::in | ios::binary);
+    plik << doZapisu;
     plik.close();
 }
 
-void ObslugaPlikow::zapiszPlik(char * tekst) {
-    fstream plik;
-    plik.open("outcome.txt",ios::out | ios::binary);
-    plik.write(tekst,dlugosc);
-    plik.close();
-}
-
-int ObslugaPlikow::getDlugosc() {
-    return dlugosc;
+std::string ObslugaPlikow::getTekst() {
+    return tekst;
 }
 

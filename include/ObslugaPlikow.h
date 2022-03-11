@@ -9,15 +9,15 @@
 class ObslugaPlikow {
 
 private:
-    int dlugosc;
-
+    std::string tekst;
+    std::string plikWejsciowy = "../pliki/wejscie.txt";
+    std::string plikWyjsciowy = "../pliki/wyjscie.txt";
 
 
 public:
-    int getDlugosc();
-    void wczytajDlugosc();
-    void wczytajPlik(char * tekst);
-    void zapiszPlik(char * tekst);
+    std::string getTekst();
+    void wczytajPlik();
+    void zapiszPlik(std::string doZapisu);
 };
 
 
