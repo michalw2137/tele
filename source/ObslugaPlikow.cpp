@@ -8,13 +8,13 @@
 
 using namespace std;
 
-void ObslugaPlikow::wczytajPlikZeSpacjami(std::string plikWejsciowy) {
+void ObslugaPlikow::wczytajPlikDoStringa(const std::string& plikWejsciowy) {
     ifstream plik(plikWejsciowy, ios::binary);
     std::getline(plik, tekst, '\0');
     plik.close();
 }
 
-void ObslugaPlikow::zapiszPlik(const std::string& doZapisu) {
+void ObslugaPlikow::zapiszStringDoPliku(const std::string& doZapisu) {
     ofstream plik(plikWyjsciowy, ios::binary);
     plik << std::noskipws;
     plik << doZapisu;

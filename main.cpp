@@ -115,33 +115,31 @@ int main() {
 
 std::string get15znakow(int &indeks, std::string &tekst) {
     std::stringstream slowo;
-    do {
-        std::cout << indeks;
-        if (tekst[indeks] != '\n') {
-            slowo << tekst[indeks];
-        }
-        indeks ++;
-    } while(indeks % (8+7) != 0);
 
+    for (int i=0; i <15; i++) {
+        slowo << tekst[i + indeks];
+    }
+    indeks += 17; // enter do znaki
     return slowo.str();
 }
 
 void testDekodowania() {
     auto pliki = std::make_shared<ObslugaPlikow>();
-    pliki->wczytajPlikZeSpacjami("../pliki/wejscie.txt");
+    pliki->wczytajPlikDoStringa("../pliki/wejscie.txt");
     std::string tekst = pliki->getTekst();
 
+    std::stringstream slowo;
     int indeks = 0;
-
     while (indeks < tekst.size()) {
-        std::cout << "    " << get15znakow(indeks, tekst) << "\n";
+        slowo << Dekoder::odkoduj(get15znakow(indeks, tekst));
     }
-
+    pliki->zapiszStringDoPliku(slowo.str());
+    std::cout << slowo.str();
 }
 
 void testKodowania() {
     auto pliki = std::make_shared<ObslugaPlikow>();
-    pliki->wczytajPlikZeSpacjami("../pliki/wejscie.txt");
+    pliki->wczytajPlikDoStringa("../pliki/wejscie.txt");
     std::string tekst = pliki->getTekst();
 
     std::stringstream kod;
@@ -151,7 +149,7 @@ void testKodowania() {
     std::cout << tekst << "\n";
 //    std::cout << kod.str();
 
-//    pliki->zapiszPlik(kod.str());
+//    pliki->zapiszStringDoPliku(kod.str());
 }
 
 

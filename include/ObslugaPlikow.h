@@ -14,8 +14,8 @@ private:
 
 public:
     std::string getTekst();
-    void wczytajPlikZeSpacjami(std::string plikWejsciowy);
-    void zapiszPlik(const std::string& doZapisu);
+    void wczytajPlikDoStringa(const std::string& plikWejsciowy);
+    void zapiszStringDoPliku(const std::string& doZapisu);
 
 };
 

@@ -23,9 +23,8 @@ Np:
 
 TODO: KOD
 CZEGO POTRZEBUJEMY:
-- odczytanie z pliku tekstu/ ciągu bitów
-- możliwość odczytywania z niego kolejnych liter/ kolejnych ciągów po (8+ilosc bitow kontrolnych (obecnie 15)) znakow
-- zapisywanie stringów z kodami/ liter do pliku
+- zebranie zapisy/odczytu do jednej metody w klasie
+- dodac 4 pliki - kodowanie/dekodowanie odczyt/zapis
 
 TODO: WIEDZA
 ogarnac jak dziala macierz, jak ja zbudowac (Macierz::uzupelnijMacierz), ile bitow minimalnie, jak wykryc 2 bledy
