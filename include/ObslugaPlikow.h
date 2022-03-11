@@ -13,11 +13,10 @@ private:
     std::string plikWejsciowy = "../pliki/wejscie.txt";
     std::string plikWyjsciowy = "../pliki/wyjscie.txt";
 
-
 public:
     std::string getTekst();
     void wczytajPlik();
-    void zapiszPlik(std::string doZapisu);
+    void zapiszPlik(const std::string& doZapisu);
 };
 
 

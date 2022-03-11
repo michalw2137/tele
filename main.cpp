@@ -2,6 +2,7 @@
 #include <cstring>
 #include <memory>
 #include <bitset>
+#include <sstream>
 
 #include "include/Macierz.h"
 #include "include/Koder.h"
@@ -100,23 +101,18 @@ testOdczytu();
 void testOdczytu() {
     auto pliki = std::make_shared<ObslugaPlikow>();
     pliki->wczytajPlik();
-    std::string test = pliki->getTekst();
-    Koder::zakoduj(tekst[i], 7);
+    std::string tekst = pliki->getTekst();
 
+    std::stringstream kod;
+    for(char znak: tekst) {
+        kod << Koder::zakoduj(znak, 7) << "\n";
+    }
+    std::cout << tekst << "\n";
+    std::cout << kod.str();
+
+    pliki->zapiszPlik(kod.str());
 }
-//    auto pliki = std::make_shared<ObslugaPlikow>();
-//    pliki->wczytajDlugosc();
-//    char * tekst = new char[ pliki->getDlugosc() + 1 ];
-//    pliki->wczytajPlik(tekst);
-//    print(tekst);
-//
-//    std::string zakodowanyTekst[pliki->getDlugosc()];
-//    for(int i=0; i<pliki->getDlugosc(); i++){
-//       zakodowanyTekst[i] = Koder::zakoduj(tekst[i], 7);
-//    }
-//    print(zakodowanyTekst, pliki->getDlugosc());
-//    pliki->zapiszPlik(tekst);
-//}
+
 
 
 void testOdkodowanieStringa() {

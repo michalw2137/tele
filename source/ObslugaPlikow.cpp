@@ -9,13 +9,14 @@
 using namespace std;
 
 void ObslugaPlikow::wczytajPlik() {
-    ifstream plik(plikWejsciowy,ios::in | ios::binary);
-    plik >> tekst;
+    ifstream plik(plikWejsciowy, ios::binary);
+    std::getline(plik, tekst, '\0');
     plik.close();
 }
 
-void ObslugaPlikow::zapiszPlik(std::string doZapisu) {
-    ofstream plik(plikWyjsciowy,ios::in | ios::binary);
+void ObslugaPlikow::zapiszPlik(const std::string& doZapisu) {
+    ofstream plik(plikWyjsciowy, ios::binary);
+    plik << std::noskipws;
     plik << doZapisu;
     plik.close();
 }
