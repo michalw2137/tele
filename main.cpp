@@ -3,11 +3,13 @@
 #include <memory>
 #include <bitset>
 #include <sstream>
+#include <string>
 
 #include "include/Macierz.h"
 #include "include/Koder.h"
 #include "include/Dekoder.h"
 #include "include/ObslugaPlikow.h"
+#include "include/Kontroler.h"
 
 void print(std::string tekst){
     std::cout << tekst;
@@ -49,12 +51,12 @@ void print(std::vector<int> tekst) {
     std::cout << std::endl;
 }
 
-void print(char tekst[]) {
-    for (int i =0; i< sizeof(tekst); i++) {
-        std::cout << tekst[i];
-    }
-    std::cout << std::endl;
-}
+//void print(char tekst[]) {
+//    for (int i =0; i< sizeof(tekst); i++) {
+//        std::cout << tekst[i];
+//    }
+//    std::cout << std::endl;
+//}
 
 void print(std::string tekst[], int dlugosc){
     for (int i =0; i< dlugosc; i++) {
@@ -96,6 +98,19 @@ void testDekodowania();
 std::string get15znakow(int &indeks, std::string &tekst);
 
 int main() {
+
+    auto kontroler = std::make_shared<Kontroler>();
+    kontroler->koduj();
+    kontroler->dekoduj();
+
+
+
+
+
+
+
+
+
 //    testKodowanieZnakow();
 //    testZnajdowanieWiesza();
 ////    testNaprawianieBledow(); - uzywa prywatnych metod
@@ -103,7 +118,7 @@ int main() {
 //    testNaprawianieKazdego1Bledu();
 //    testNaprawianieKazdych2Bledow();
 //  testKodowania();
-    testDekodowania();
+//    testDekodowania();
 //    testOdejmowania();
 //    gigaTest2Bledy();
 // gigaTest1Blad();
@@ -243,7 +258,7 @@ void testDekodowania() {
     while (indeks < tekst.size()) {
         slowo << Dekoder::odkoduj(get15znakow(indeks, tekst));
     }
-    pliki->zapiszStringDoPliku(slowo.str());
+    pliki->zapiszStringDoPliku(slowo.str(), "../pliki/wejscie.txt");
     std::cout << slowo.str();
 }
 
@@ -259,7 +274,7 @@ void testKodowania() {
     std::cout << tekst << "\n";
 //    std::cout << kod.str();
 
-    pliki->zapiszStringDoPliku(kod.str());
+    pliki->zapiszStringDoPliku(kod.str(), "../pliki/wejscie.txt");
 }
 
 
