@@ -103,7 +103,8 @@ int main() {
     kontroler->koduj();
     kontroler->dekoduj();
 
-
+//    std::cout<<"\n\n\n";
+//    gigaTest2Bledy();
 
 
 

@@ -7,7 +7,7 @@ Np:
 
 static char odkoduj(std::string slowo);
 
-DEKODOWANIE - pobiera lancuch 0 i 1 (lacznie z bitami kontrolnymi), zwraca znak (wykrywa blad pojedynczego bitu, naprawia go).
+DEKODOWANIE - pobiera lancuch 0 i 1 (lacznie z bitami kontrolnymi), zwraca znak (wykrywa blad jednego lub dwóch bitów, naprawia go).
 Zakladamy, ze znak jest zapisany 8 bitami, dekoder sam liczy ilosc bitow kontrolnych (ilosc bitow kontrolnych = dlugosc lancucha - 8)
 
     static char Dekoder::odkoduj(std::string slowo);
@@ -27,5 +27,5 @@ CZEGO POTRZEBUJEMY:
 - dodac 4 pliki - kodowanie/dekodowanie odczyt/zapis
 
 TODO: WIEDZA
-ogarnac jak dziala macierz, jak ja zbudowac (Macierz::uzupelnijMacierz), ile bitow minimalnie, jak wykryc 2 bledy
+ogarnac jak dziala macierz, jak ja zbudowac, ile bitow minimalnie, jak wykryc 2 bledy
 
