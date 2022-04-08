@@ -6,7 +6,9 @@
 
 #IncludeRegexTransform: 
 
-D:/4 SEM/TELE/untitled/main.cpp
+D:/4 SEM/TELE/untitled/include/codes.h
+
+D:/4 SEM/TELE/untitled/src/main.cpp
 iostream
 -
 windows.h
@@ -15,4 +17,6 @@ fstream
 -
 vector
 -
+../include/codes.h
+D:/4 SEM/TELE/untitled/include/codes.h
 

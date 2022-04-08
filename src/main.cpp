@@ -2,6 +2,7 @@
 #include <windows.h>
 #include <fstream>
 #include <vector>
+#include "../include/codes.h"
 
 int main() {
     HANDLE port;
@@ -38,24 +39,37 @@ int main() {
 //    std::cout << "Name to save received file under: ";
 //    getline(std::cin, fileName);
     std::ofstream output( "../received/" + fileName, std::ios::binary );
+    DWORD bytesRead = 0;
+    DWORD bytesWritten = 0;
 
-
-
-    byte temp[1];
-    std::vector<byte> solution;
-    DWORD bytesRead;
-    std::cout<<"nasluchuje \n";
-
-    ReadFile(port, temp, 10, &bytesRead, NULL);
-    std::cout << "cos sie pojawilo\n";
-    std::cout << temp;
-    while(ReadFile(port, temp, 10, &bytesRead, NULL)) {
-        solution.push_back(*temp);
+    byte startConnection;
+    if (true) {
+        startConnection = NAK;
+    } else {
+        startConnection = C;
     }
-    std::cout << "bytes read: " << solution.size();
 
-    output << solution.data();
-    std::cout << solution.data();
+    int SIZE = 0;
+    if (true) {
+        SIZE = 128 + 3;
+    } else {
+        SIZE = 128 + 4;
+    }
+    byte answer[SIZE];
+
+    for (int i = 0; i < 60; i++){
+        bool isSuccesful = WriteFile(port, &NAK, 1, &bytesWritten, NULL);
+        std::cout << "poczatek wczytywania \n";
+        ReadFile(port, answer, SIZE, &bytesRead, NULL);
+        std::cout << "koniec wczytywania \n";
+        if (bytesRead == 0) {
+            std::cout << "no bytes read" << '\n';
+        } else {
+            std::cout << " BYTES READ: " << bytesRead <<'\n';
+            std::cout << answer << '\n';
+        }
+        Sleep(10 * 1000);
+    }
 
 
     output.close();
