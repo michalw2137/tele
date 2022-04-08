@@ -37,17 +37,19 @@ int main() {
     std::string fileName = "test.txt";
 //    std::cout << "Name to save received file under: ";
 //    getline(std::cin, fileName);
-
     std::ofstream output( "../received/" + fileName, std::ios::binary );
-    // copies all data into buffer
-    byte* temp;
+
+
+
+    byte temp[1];
     std::vector<byte> solution;
     DWORD bytesRead;
-    std::cout<<"nasluchuje";
+    std::cout<<"nasluchuje \n";
 
-    while(!ReadFile(port, temp, sizeof(temp), &bytesRead, NULL));
-    std::cout<<"cos sie pojawilo";
-    while(ReadFile(port, temp, sizeof(temp), &bytesRead, NULL)) {
+    ReadFile(port, temp, 10, &bytesRead, NULL);
+    std::cout << "cos sie pojawilo\n";
+    std::cout << temp;
+    while(ReadFile(port, temp, 10, &bytesRead, NULL)) {
         solution.push_back(*temp);
     }
     std::cout << "bytes read: " << solution.size();
