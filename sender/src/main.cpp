@@ -3,6 +3,7 @@
 #include <vector>
 #include <fstream>
 #include "../include/typedef.h"
+#include "../include/codes.h"
 
 int main() {
     HANDLE port;
@@ -44,6 +45,8 @@ int main() {
     std::vector<byte> buffer(std::istreambuf_iterator<char>(input), {});
 
     DWORD bytesWritten;
+    DWORD bytesRead;
+
     for(byte b: buffer)
         std::cout << b;
     std::cout << '\n';
@@ -51,13 +54,16 @@ int main() {
 //    while(1)
     WriteFile(port, buffer.data(), buffer.size(), &bytesWritten, NULL);
 
-
-
-    if (bytesWritten != buffer.size()) {
-        std::cout << "bytes written: " << bytesWritten << '\n'
-                    << "buffer size: " << buffer.size() << '\n';
-    } else {
-        std::cout << "All bytes sent";
+    byte answer;
+    std::cout << "Expected: NAK = " << NAK << '\n';
+    while (true) {
+        ReadFile(port, &answer, sizeof(answer), &bytesRead, NULL);
+        if (bytesRead == 0) {
+            std::cout << "no bytes read" << '\n';
+        } else {
+            std::cout << " BYTES READ: " << bytesRead <<'\n';
+            std::cout << answer << '\n';
+        }
     }
 
 
