@@ -47,7 +47,7 @@ int main() {
     timeouts.WriteTotalTimeoutMultiplier = 10;
     SetCommTimeouts(port, &timeouts);
 
-    std::string fileName = "test.txt";
+    std::string fileName = "jpg.jpg";
     std::ofstream output( "../received/" + fileName, std::ios::binary );
     DWORD bytesRead = 0;
     DWORD bytesWritten = 0;
