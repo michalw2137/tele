@@ -1,0 +1,14 @@
+sender:
+ -wczytuje plik
+ -brał pierwsze 128 bajtów
+    -jeśli nie 128 to dopełnia zerami
+ -liczył sumę kontrolną
+ -wysyłał dane:
+    - nagłówek: SOH, numer bloku, 255-numer bloku (3 bajty)
+    - blok 128 bajtów   (128 bajt)
+    - sumę kontrolną (1 bajt / 2 bajty)
+ -czeka na odpowiedź (ACK/ NAK)
+ -ponownie przesyła/ wyysyła kolejne
+
+ -wyczerpanie danych - EOT
+ -czeka na ACK

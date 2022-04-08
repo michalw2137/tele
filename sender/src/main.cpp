@@ -36,10 +36,9 @@ int main() {
     timeouts.WriteTotalTimeoutConstant = 50;
     timeouts.WriteTotalTimeoutMultiplier = 10;
 
-    std::string fileName = "message.txt";
+    std::string fileName = "jpg.jpg";
 //    std::cout << "File to send: ";
 //    getline(std::cin, fileName);
-
     std::ifstream input( "../files/" + fileName, std::ios::binary );
     // copies all data into buffer
     std::vector<byte> buffer(std::istreambuf_iterator<char>(input), {});
@@ -58,12 +57,14 @@ int main() {
     std::cout << "Expected: NAK = " << NAK << '\n';
     while (true) {
         ReadFile(port, &answer, sizeof(answer), &bytesRead, NULL);
+
         if (bytesRead == 0) {
             std::cout << "no bytes read" << '\n';
         } else {
             std::cout << " BYTES READ: " << bytesRead <<'\n';
             std::cout << answer << '\n';
         }
+
     }
 
 
