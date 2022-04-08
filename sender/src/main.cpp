@@ -48,7 +48,7 @@ int main() {
         std::cout << b;
     std::cout << '\n';
 
-    while(1)
+//    while(1)
     WriteFile(port, buffer.data(), buffer.size(), &bytesWritten, NULL);
 
 
