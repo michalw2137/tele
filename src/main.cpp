@@ -58,16 +58,24 @@ int main() {
     byte answer[SIZE];
 
     for (int i = 0; i < 6; i++){
-        bool isSuccesful = WriteFile(port, &NAK, 1, &bytesWritten, NULL);
+        bool isSuccesful = WriteFile(port, &startConnection, 1, &bytesWritten, NULL);
+
         std::cout << "poczatek wczytywania \n";
         ReadFile(port, answer, SIZE, &bytesRead, NULL);
         std::cout << "koniec wczytywania \n";
+
         if (bytesRead == 0) {
             std::cout << "no bytes read" << "\n\n";
         } else {
             std::cout << " BYTES READ: " << bytesRead << "\n";
-            std::cout << "received data: " << answer << "\n\n";
+            std::cout << "received data: \n";
+
+            for (byte b: answer) {
+                std::cout << b;
+            }
+            std::cout << '\n';
         }
+
         Sleep(10 * 1000);
     }
 

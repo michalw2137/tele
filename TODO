@@ -1,0 +1,16 @@
+receiver:
+ - przez minutę wysyła co 10sek NAK / C
+ - odbiera nagłówek (3 bajty)
+    - odbiera SOH (1 bajt)
+    - odbiera numer bloku (1 bajt)
+    - odbiera 255-numer bloku (1 bajt)
+
+ - wczytuje blok (128 bajtów)
+ - wczytuje sumę kontrolną (1 bajt / 2 bajty)
+ - liczy sam sumę kontrolną i porównuje z otrzymaną
+    - są git - ACK
+    - nie są git - NAK
+
+ - dodaje dane do wyniku
+ - otrzyma EOT - wysyła ACK
+ - wynik do pliku
