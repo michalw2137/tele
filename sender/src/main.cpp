@@ -38,7 +38,7 @@ void splitIntoBlocks(std::vector<byte> buffer, byte blocks [][128] ) {
         }
         //dopisanie zer
         while (ii < 128) {
-            blocks[i][ii] = 'x';
+            blocks[i][ii] = '0';
             ii++;
         }
         i++;
@@ -98,7 +98,7 @@ int main() {
     timeouts.WriteTotalTimeoutConstant = 50;
     timeouts.WriteTotalTimeoutMultiplier = 10;
 
-    std::string fileName = "message.txt";
+    std::string fileName = "jpg.jpg";
     std::ifstream input("../files/" + fileName, std::ios::binary);
     std::vector<byte> buffer(std::istreambuf_iterator<char>(input), {});
     maxBlocks = ceil(buffer.size()/128.);
