@@ -54,7 +54,7 @@ void printBlocks(byte blocks [][128]) {
     }
 }
 
-byte algebraicChecksum(byte bytes[128]){
+byte algebraicSum(const byte bytes[128]){
     byte sum = 0;
     for(int i=0; i<128; i++){
         sum += bytes[i];
@@ -93,7 +93,7 @@ int main() {
     //konfiguracja timeouts
     COMMTIMEOUTS timeouts = {0};
     timeouts.ReadIntervalTimeout = 5000;        //in ms
-    timeouts.ReadTotalTimeoutConstant = 5000;
+    timeouts.ReadTotalTimeoutConstant = 3333;
     timeouts.ReadTotalTimeoutMultiplier = 10;
     timeouts.WriteTotalTimeoutConstant = 50;
     timeouts.WriteTotalTimeoutMultiplier = 10;
@@ -111,48 +111,64 @@ int main() {
 
     DWORD bytesWritten;
     DWORD bytesRead;
+    byte answer = 0;
 
+
+    do {
+        std::cout << "waiting for NAK \n";
+        ReadFile(port, &answer, 1, &bytesRead, NULL);
+    } while (answer != NAK);
+
+    PurgeComm(port, PURGE_RXCLEAR);
+
+    std::cout << "NAK received \n";
 
     int blockNumber = 0;
     while (blockNumber < maxBlocks) {
-        byte block[128];
-        for(int i=0; i<128; i++) {
-            block[i] = blocks[blockNumber][i];
-        }
-
         byte header[3];
         fillHeader(header, blockNumber);
 
-        std::cout << "BLOK nr " << blockNumber <<'\n';
-        std::cout << "header: \n";
-        std::cout << (int)header[0] << "_" << (int)header[1] << "_" << (int)header[2] << "\n";
+        byte block[128];
+        for(int i=0; i<128; i++)
+            block[i] = blocks[blockNumber][i];
 
-        std::cout << "blok danych: \n";
-        for(int i=0; i<128; i++) {
+        byte sum[SUM_SIZE];
+        sum[0] = algebraicSum(block);
+
+        isSuccesful = WriteFile(port, header, 3, &bytesWritten, NULL);
+        if (isSuccesful)
+            std::cout << blockNumber << ". header sent \n";
+
+        isSuccesful = WriteFile(port, block, 128, &bytesWritten, NULL);
+        for (int i=0; i<128; i++)
             std::cout << block[i];
-        } std::cout << '\n';
+        std::cout << '\n';
 
-        std::cout << "suma kontrolna: \n";
-        std::cout << (int)algebraicChecksum(block) << "\n\n";
+        if (isSuccesful)
+            std::cout << blockNumber << ". block sent \n";
 
-        blockNumber ++;
+        isSuccesful = WriteFile(port, sum, SUM_SIZE, &bytesWritten, NULL);
+        if (isSuccesful)
+            std::cout << blockNumber << ". sum sent \n";
+
+        std::cout << "\nwaiting for answer ...";
+        ReadFile(port, &answer, 1, &bytesRead, NULL);
+        std::cout << "\nanswer received - " << (int)answer << "\n\n";
+
+        if (answer == ACK) {
+            blockNumber ++;
+        }
     }
+    answer = 0;
+    while(answer != ACK) {
+        // wyslij EOT
+        isSuccesful = WriteFile(port, &EOT, 1, &bytesWritten, NULL);
+        std::cout << "EOT sent \n";
 
-    // wysłanie nagłówka
-//    fillHeader(header, i);
-//    isSuccesful = WriteFile(port, header, 3, &bytesWritten, NULL);
-
-
-//    isSuccesful = WriteFile(port, data, 128, &bytesWritten, NULL);
-
-    //wysłanie sumy kotrolnej
-    byte sum[SUM_SIZE];
-
-//    isSuccesful = WriteFile(port, sum, SUM_SIZE, &bytesWritten, NULL);
-
-
-
-
+        // czekaj na ACK
+        ReadFile(port, &answer, 1, &bytesRead, NULL);
+    }
+    std::cout << "ACK received, transmission ended \n";
 
     CloseHandle(port);
     return 0;
