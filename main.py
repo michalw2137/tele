@@ -16,9 +16,9 @@ def binary_to_bytes(binary: str) -> str:
 
 
 if __name__ == '__main__':
-    message = "Przykładowa wiadomość. Jebać smolińskiego śmiecia."
-    print("ORIGINAL MESSAGE:")
-    print(message)
+    with open("files/message.txt") as file:
+        lines = file.readlines()
+    message = ''.join(lines)
 
     print("\nCODES FOR SYMBOLS:")
     codes = huffman.get_codes_for_characters_in_message(message)
@@ -28,9 +28,15 @@ if __name__ == '__main__':
     binary = coder.code_message_to_binary_string(message, codes)
     print(binary)
 
-    print("\nORIGINAL MESSAGE:")
-    print(f"{len(message)} bytes: {message}")
+    print("\nORIGINAL SIZE:")
+    print(f"{len(message)} bytes")
 
-    print("\nCODED MESSAGE:")
-    print(f"{int(len(binary) / 8) + 1} bytes: {binary_to_bytes(binary)}")
+    print("\nCODED SIZE:")
+    print(f"{int(len(binary) / 8) + 1} bytes")
+
+    print("\nSAVED SPACE:")
+    print(f"{len(message) - (int(len(binary) / 8) + 1)} bytes")
+
+    print("\nMESSAGE:")
+    print(f"{binary_to_bytes(binary)}")
 
