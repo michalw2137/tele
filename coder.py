@@ -5,6 +5,9 @@ def code_message_to_binary_string(message: str, codes: list[Node]) -> str:
     coded = []
     for char in message:
         coded.append(code_symbol(char, codes))
+    while len(''.join(coded)) % 8 != 0:
+        coded.append(code_symbol(' ', codes))
+        print(f"added ' ' -> {code_symbol(' ', codes)}")
     return ''.join(coded)
 
 
@@ -13,6 +16,21 @@ def code_symbol(symbol: str, codes: list[Node]):
         if symbol == code.symbol:
             return code.code
     raise IndexError("Symbol not found in codes list!")
+
+
+def binary_to_bytes(binary: str) -> str:
+    index = 0
+    bytes_ = []
+    while index < len(binary) - 8:
+        byte = binary[index: index + 8]     # 8 characters long string of 1s and 0s
+        bytes_.append(chr(int(byte, 2)))    # char corresponding to int written in binary
+        index += 8
+
+    if index < len(binary):                 # last, less than 8, bits
+        byte = binary[index: len(binary)]
+        bytes_.append(chr(int(byte, 2)))
+
+    return ''.join(bytes_)
 
 
 def decode_message(message: str, codes: list[Node]) -> str:
@@ -27,7 +45,7 @@ def string_to_binary(message: str) -> str:
 
 
 def decode_binary(binary: str, codes: list[Node]) -> str:
-    start, end = 1, 0
+    start, end = 0, 1
     decoded = []
     while end < len(binary):
         symbol = code_exists(binary[start: end], codes)
