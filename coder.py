@@ -18,7 +18,7 @@ def code_symbol(symbol: str, codes: list[Node]):
     raise IndexError("Symbol not found in codes list!")
 
 
-def binary_to_bytes(binary: str) -> str:
+def binary_to_bytes(binary: str):
     index = 0
     bytes_ = []
     while index < len(binary) - 8:
@@ -29,8 +29,9 @@ def binary_to_bytes(binary: str) -> str:
     if index < len(binary):                 # last, less than 8, bits
         byte = binary[index: len(binary)]
         bytes_.append(chr(int(byte, 2)))
-
     return ''.join(bytes_)
+
+    # return ''.join(bytes_)
 
 
 def decode_message(message: str, codes: list[Node]) -> str:
