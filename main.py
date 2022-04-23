@@ -1,5 +1,6 @@
 import huffman
 import coder
+from node import Node
 
 
 def binary_to_bytes(binary: str) -> str:
@@ -15,28 +16,37 @@ def binary_to_bytes(binary: str) -> str:
     return ''.join(bytes_)
 
 
+def code(message: str, codes: list[Node]):
+    print("\nCODED MESSAGE IN BINARY:")
+    binary = coder.code_message_to_binary_string(message, codes)
+    print(binary)
+
+    print("\nORIGINAL SIZE:\t\tCODED SIZE:\t\t\tSAVED SPACE:")
+    print(f"{len(message)} B\t\t\t\t{int(len(binary) / 8) + 1} B\t\t\t\t{len(message) - (int(len(binary) / 8) + 1)} B")
+
+    with open("files/coded.txt", 'w', encoding="utf-8") as file_coding:
+        file_coding.write(binary_to_bytes(binary))
+
+
+def decode(codes: list[Node]):
+    with open("files/coded.txt", 'r', encoding="utf-8") as file_decoding:
+        lines_ = file_decoding.readlines()
+    coded = ''.join(lines_)
+
+    decoded = coder.decode_message(coded, codes)
+
+    with open("files/decoded.txt", 'w', encoding="utf-8") as file_decoded:
+        file_decoded.write(decoded)
+
+
 if __name__ == '__main__':
-    with open("files/message.txt") as file:
-        lines = file.readlines()
+    with open("files/message_pl.txt", 'r', encoding="utf-8") as file_message:
+        lines = file_message.readlines()
     message = ''.join(lines)
 
     print("\nCODES FOR SYMBOLS:")
     codes = huffman.get_codes_for_characters_in_message(message)
     print(*codes, sep='\n')
 
-    print("\nCODED MESSAGE IN BINARY:")
-    binary = coder.code_message_to_binary_string(message, codes)
-    print(binary)
-
-    print("\nORIGINAL SIZE:")
-    print(f"{len(message)} bytes")
-
-    print("\nCODED SIZE:")
-    print(f"{int(len(binary) / 8) + 1} bytes")
-
-    print("\nSAVED SPACE:")
-    print(f"{len(message) - (int(len(binary) / 8) + 1)} bytes")
-
-    print("\nMESSAGE:")
-    print(f"{binary_to_bytes(binary)}")
-
+    code(message, codes)
+    decode(codes)
