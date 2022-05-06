@@ -12,7 +12,7 @@ def code(message: str, codes: list[Node]):
     print(f"{len(message)} B\t\t\t\t{len(binary) / 8} B\t\t\t\t{len(message) - (int(len(binary) / 8) + 1)} B")
 
     with open("files/coded.txt", 'w', encoding="utf-8") as file_coding:
-        file_coding.write(coder.binary_to_bytes(binary))
+        file_coding.write(binary)
 
 
 def decode(codes: list[Node]):
@@ -24,7 +24,7 @@ def decode(codes: list[Node]):
         file_decoded.write(coded)
 
     print("\nBINARY READ FROM FILE:")
-    binary = coder.string_to_binary(coded)
+    binary = coded
     print(binary)
 
     decoded = coder.decode_message(coded, codes)
@@ -38,8 +38,12 @@ if __name__ == '__main__':
         lines = file_message.readlines()
     message = ''.join(lines)
 
+    with open("files/huffman_frequency.txt", 'r', encoding="utf-8") as file_message:
+        lines_ = file_message.readlines()
+    huffman_frequency = ''.join(lines_)
+
     print("\nCODES FOR SYMBOLS:")
-    codes = huffman.get_codes_for_characters_in_message(message)
+    codes = huffman.get_codes_for_characters_in_message(huffman_frequency)
     print(*codes, sep='\n')
 
     code(message, codes)

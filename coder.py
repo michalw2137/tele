@@ -6,6 +6,7 @@ def code_message_to_binary_string(message: str, codes: list[Node]) -> str:
     for char in message:
         coded.append(code_symbol(char, codes))
     while len(''.join(coded)) % 8 != 0:
+        print(len(''.join(coded)))
         coded.append(code_symbol(' ', codes))
         print(f"added ' ' -> {code_symbol(' ', codes)}")
     return ''.join(coded)
