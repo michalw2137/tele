@@ -16,7 +16,7 @@ def code_symbol(symbol: str, codes: list[Node]):
     for code in codes:
         if symbol == code.symbol:
             return code.code
-    raise IndexError("Symbol not found in codes list!")
+    raise IndexError(f"Symbol '{symbol}' not found in codes list!")
 
 
 def binary_to_bytes(binary: str) -> str:

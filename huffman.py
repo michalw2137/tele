@@ -3,7 +3,7 @@ from node import Node
 
 def get_codes_for_characters_in_message(message: str):
     nodes = get_nodes(message)  # node: distinct symbol and its # of occurences
-    print(nodes)
+    #print(nodes)
     while len(nodes) > 1:
         nodes = sorted(nodes, key=lambda n: n.freq)  # sort all the nodes based on frequency
 
