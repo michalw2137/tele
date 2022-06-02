@@ -4,7 +4,7 @@ import huffman
 # ===================================================== wczytanie i obliczenie kodów dla wzorcowego tekstu
 import sender
 
-with open("files/pasta.txt", 'r', encoding="utf-8") as file:
+with open("files/huffman_frequency.txt", 'r', encoding="utf-8") as file:
     codes_dictionary = ''.join(file.readlines())
 codes = huffman.get_codes_for_characters_in_message(codes_dictionary)
 # ===================================================================================

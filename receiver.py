@@ -6,7 +6,7 @@ import huffman
 
 
 s = socket(AF_INET, SOCK_DGRAM)
-s.bind(("192.168.100.42", 69)) # ip i port
+s.bind(("10.128.153.61", 69)) # ip i port
 def recieve():
     received_data = ""
 
@@ -22,11 +22,11 @@ def recieve():
         client_data = buffer.decode('utf-8')
 
         if client_data[0:3] == "END":
-            print("GÓWNO")
+            print("ENDING")
             break
 
         if client_data[0:5] == "SIZE=":
-            print("GÓWNO 2")
+            print("GETTING SIZE")
             print(client_data[5:8])
             buffer = bytearray(int(client_data[5:8]))
         else:
@@ -37,8 +37,8 @@ def recieve():
 
     # i += 1
 # print(received_data)
-rec_codes = recieve()
-print(rec_codes)
+# rec_codes = recieve()
+# print(rec_codes)
 rec_message = recieve()
 print(rec_message)
 
@@ -50,6 +50,7 @@ codes = huffman.get_codes_for_characters_in_message(codes_dictionary)
 # ===================================================================================
 
 decoded = coder.decode_binary(rec_message, codes)
-f = open("files/new_message.txt", "w")
-f.write(decoded)
 print(decoded)
+with open("files/new_message.txt", 'w', encoding="utf-8") as f:
+    f.write(decoded)
+

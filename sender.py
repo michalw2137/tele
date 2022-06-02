@@ -4,7 +4,7 @@ from socket import AF_INET, SOCK_DGRAM, socket
 
 def send_string(my_string: str):
     s = socket(AF_INET, SOCK_DGRAM)
-    s.connect(("192.168.100.42", 69))  # ip i port
+    s.connect(("10.128.144.205", 69))  # ip i port
     # my_string = my_string.encode('utf-8')
 
     i = 0
